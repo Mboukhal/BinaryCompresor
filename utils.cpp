@@ -11,40 +11,49 @@ std::string toBinary(std::string const &str)
 
 std::string compres(std::string const &str)
 {
-	int one = 1, zero = 1, last = str[0] - '0';
+	int one = 0, zero = 0;
 	std::string comp;
 	comp += str[0];
 	comp += " \n";
-	for (int i = 0; i < (int)str.size(); i++)
+	float strsize = (float)str.size();
+	for (int i = 0; i < (int)strsize; i++)
 	{
 		if (str[i] == '0')
 		{
-			if (last == 1)
+			while (str[i++] == '0')
+				zero++;
+			if (zero > 9)
 			{
-				comp += zero + '0';
-				zero = 1;
-				last = 0;
+				comp += '.';
+				comp += std::to_string(zero);
+				comp += '.';
+
 			}
 			else
-				zero++;
+				comp += zero + '0';
+				zero = 0;
+				// last = 0;
 		}
 		else if (str[i] == '1')
 		{
-			if (last == 0)
+			while (str[i++] == '1')
+				one++;
+			if (one > 9)
 			{
-				comp += one + '0';
-				one = 1;
-				last = 1;
+				comp += '.';
+				comp += std::to_string(one);
+				comp += '.';
 			}
 			else
-				one++;
+				comp += one + '0';
+			one = 0;
 		}
+		std::cout <<'[' << i << ']'<< std::endl;
 	}
-	int strsize = (int)str.size();
-	int compsize = (int)comp.size();
+	float compsize = (float)comp.size();
 	std::cout << "size of str: " << strsize
 			  << " size of comp: " << compsize
-			  << " comprese porsontage: " << 100 - ((compsize * 100) / strsize)
+			  << " comprese porsontage: " << (100 - ((compsize * 100) / strsize))
 			  << "%"
 			  << std::endl; 
 	return comp;
