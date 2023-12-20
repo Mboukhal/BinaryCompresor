@@ -11,7 +11,7 @@ CFILES				= main.cpp utils.cpp
 OBJ					= $(CFILES:.cpp=.o)
 
 .cpp.o:
-	@ $(CC) $(OPTION) -c $< -o $@
+	@ $(CC) -std=c++11 -c $< -o $@
 
 $(NAME): $(OBJ)
 	@ $(CC) $(OBJ) -o $(NAME)
@@ -27,7 +27,7 @@ fclean: clean
 re: fclean all
 
 run: all clean
-	@ reset
+	@ # reset
 	@ ./$(NAME)
 	@ rm -rf .vscode
 
